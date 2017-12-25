@@ -1,0 +1,27 @@
+parameters:
+    mindy.sitemap.host: 'https://example.com'
+    mindy.sitemap.path: '%kernel.project_dir%/public'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    _instanceof:
+        Mindy\Sitemap\SitemapProviderInterface:
+            tags: ['sitemap.provider']
+
+    Mindy\Bundle\SitemapBundle\:
+        resource: '../../*'
+        exclude: '../../{Tests,vendor}'
+
+    Mindy\Sitemap\Builder:
+        arguments:
+            $hostWithScheme: '%mindy.sitemap.host%'
+            $path: '%mindy.sitemap.path%'
+        public: true
+
+    sitemap.builder:
+        alias: Mindy\Sitemap\Builder
+        public: true

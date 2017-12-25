@@ -1,0 +1,11 @@
+parameters:
+    kernel.secret: 123
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Mindy\Bundle\SitemapBundle\Tests\TestSitemapProvider:
+        public: true

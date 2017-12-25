@@ -9,10 +9,21 @@
             "/Tests/"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Mindy\\Bundle\\SitemapBundle\\Tests\\": ""
+        }
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "require": {
-        "php": ">=5.5.9",
-        "mindy/sitemap": "~3.0",
-        "symfony/console": "~3.0"
+        "php": ">=7.0",
+        "mindy/sitemap": ">=4.0.3",
+        "symfony/console": "~3.0 || ~4.0"
     },
     "authors": [
         {
@@ -21,14 +32,11 @@
             "homepage": "http://studio107.ru"
         }
     ],
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.6.8-dev"
-        }
-    },
     "require-dev": {
-        "codeclimate/php-test-reporter": "^0.4.4",
-        "phpunit/phpunit": "~5.0"
+        "phpunit/phpunit": "^6.5",
+        "symfony/config": "^3.4",
+        "symfony/dependency-injection": "^3.4",
+        "symfony/framework-bundle": "^3.4",
+        "symfony/yaml": "^3.4"
     }
 }

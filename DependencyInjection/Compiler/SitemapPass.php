@@ -23,7 +23,7 @@ class SitemapPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (false == $container->has('sitemap.builder')) {
+        if (false == $container->hasDefinition('sitemap.builder')) {
             return;
         }
 
