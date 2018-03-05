@@ -1,7 +1,3 @@
-parameters:
-    mindy.sitemap.host: 'https://example.com'
-    mindy.sitemap.path: '%kernel.project_dir%/public'
-
 services:
     _defaults:
         autowire: true
@@ -18,10 +14,5 @@ services:
 
     Mindy\Sitemap\Builder:
         arguments:
-            $hostWithScheme: '%mindy.sitemap.host%'
-            $path: '%mindy.sitemap.path%'
-        public: true
-
-    sitemap.builder:
-        alias: Mindy\Sitemap\Builder
-        public: true
+            - 'https://example.com'
+            - '%kernel.project_dir%/public'

@@ -14,15 +14,21 @@ namespace Mindy\Bundle\SitemapBundle\Command;
 use Mindy\Sitemap\Builder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class BuildCommand extends Command
 {
+    protected static $defaultName = 'sitemap:build';
+
     /**
      * @var Builder
      */
     protected $builder;
+    /**
+     * @var KernelInterface
+     */
+    protected $kernel;
 
     /**
      * BuildCommand constructor.
@@ -30,26 +36,23 @@ class BuildCommand extends Command
      * @param null    $name
      * @param Builder $builder
      */
-    public function __construct($name = null, Builder $builder)
+    public function __construct($name = null, Builder $builder, KernelInterface $kernel)
     {
         $this->builder = $builder;
+        $this->kernel = $kernel;
         parent::__construct($name);
     }
 
-    protected function configure()
-    {
-        $this
-            ->setName('sitemap:build')
-            ->addOption('path', '', InputOption::VALUE_REQUIRED, 'Path for save sitemaps', null);
-    }
-
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int|null|void
+     *
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $path = $input->getOption('path');
-        if (false == is_dir($path)) {
-            throw new \Exception(sprintf('%s isnt directory', $path));
-        }
-
         $sitemaps = $this->builder->build();
         foreach ($sitemaps as $sitemap) {
             $output->writeln($sitemap);

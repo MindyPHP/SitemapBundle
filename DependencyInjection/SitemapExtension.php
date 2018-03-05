@@ -10,6 +10,7 @@
 
 namespace Mindy\Bundle\SitemapBundle\DependencyInjection;
 
+use Mindy\Sitemap\Builder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -24,5 +25,12 @@ class SitemapExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
+
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $definition = $container->getDefinition(Builder::class);
+        $definition->replaceArgument(0, $config['host']);
+        $definition->replaceArgument(1, $config['path']);
     }
 }
